@@ -103,6 +103,16 @@
             ],
             "scripts": []
           }
+        },
+        "deploy": {
+          "builder": "@angular/fire:deploy",
+          "options": {
+            "prerender": false,
+            "ssr": false,
+            "browserTarget": "google-calendar-clone:build:production",
+            "firebaseProject": "g-calendar-clone",
+            "firebaseHostingSite": "g-calendar"
+          }
         }
       }
     }

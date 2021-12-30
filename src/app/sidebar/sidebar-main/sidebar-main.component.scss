@@ -1,0 +1,12 @@
+@import './../../../styles/media.mixins.scss';
+.sidebar-main-wrapper{
+    position: absolute;
+    position: fixed; 
+    left: 0;
+    background-color: lightsteelblue;
+    width: 220px;
+    height: inherit;
+    @include for-phone-only {
+        display: none;
+    }
+}

@@ -1,10 +1,19 @@
+import { environment } from 'src/environments/environment';
+import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
+import { AngularFireModule } from '@angular/fire/compat';
 import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
+import { CommonModule } from '@angular/common';
+import { AuthMainComponent } from './auth-main/auth-main.component';
+import { LoginComponent } from './components/login/login.component';
+import { SignupComponent } from './components/signup/signup.component';
 
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
-import { initializeApp,provideFirebaseApp } from '@angular/fire/app';
-import { environment } from '../environments/environment';
+import { AngularFireAnalyticsModule } from '@angular/fire/compat/analytics';
+
+import { initializeApp } from 'firebase/app';
+import { provideFirebaseApp } from '@angular/fire/app';
+
+ 
+ 
 import { provideAnalytics,getAnalytics,ScreenTrackingService,UserTrackingService } from '@angular/fire/analytics';
 import { provideAuth,getAuth } from '@angular/fire/auth';
 import { provideDatabase,getDatabase } from '@angular/fire/database';
@@ -14,31 +23,26 @@ import { provideMessaging,getMessaging } from '@angular/fire/messaging';
 import { providePerformance,getPerformance } from '@angular/fire/performance';
 import { provideRemoteConfig,getRemoteConfig } from '@angular/fire/remote-config';
 import { provideStorage,getStorage } from '@angular/fire/storage';
-
-
-import {AuthModule} from 'src/app/auth/auth.module';
-import {HeaderModule} from 'src/app/header/header.module';
-import { SidebarModule } from './sidebar/sidebar.module';
-import { ContentModule } from './content/content.module';
-import { AngularFirestore } from '@angular/fire/compat/firestore';
+ 
+ 
+import { AuthRoutingModule } from './auth-routing.module';
 import { StoreModule } from '@ngrx/store';
+import { RegisterEffect } from './store/effects/register.effect';
 import {EffectsModule} from '@ngrx/effects'
-import {StoreDevtoolsModule} from '@ngrx/store-devtools'
-
+import { reducers } from './store/auth.reducers';
 
 @NgModule({
   declarations: [
-    AppComponent,
-     
+    AuthMainComponent,
+    LoginComponent,
+    SignupComponent
   ],
   imports: [
-    BrowserModule,
-    AppRoutingModule,
-    AuthModule,
-    HeaderModule,
-    SidebarModule,
-    ContentModule,
-    provideFirebaseApp(() => initializeApp(environment.firebase,'goole-calendar-clone')),
+    CommonModule,     
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFirestoreModule,
+    AngularFireAnalyticsModule,
+    AngularFirestoreModule,
     provideAnalytics(() => getAnalytics()),
     provideAuth(() => getAuth()),
     provideDatabase(() => getDatabase()),
@@ -48,18 +52,13 @@ import {StoreDevtoolsModule} from '@ngrx/store-devtools'
     providePerformance(() => getPerformance()),
     provideRemoteConfig(() => getRemoteConfig()),
     provideStorage(() => getStorage()),
-    StoreModule.forRoot({}),
-    StoreDevtoolsModule.instrument({
-      maxAge: 25,
-      logOnly: environment.production
-    }),
-    EffectsModule.forRoot([])
+    AuthRoutingModule,
+    StoreModule.forFeature('auth', reducers),
+    EffectsModule.forFeature([RegisterEffect])
+    
   ],
-  exports:[ ],
-  providers: [
-    ScreenTrackingService,UserTrackingService,
-    AngularFirestore
-  ],
-  bootstrap: [AppComponent]
+  exports:[
+    AuthMainComponent,
+  ]
 })
-export class AppModule { }
+export class AuthModule { }

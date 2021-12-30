@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "g-calendar-clone": {
+      "hosting": {
+        "google-calendar-clone": [
+          "g-calendar"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "g-calendar-clone"
+  }
+}

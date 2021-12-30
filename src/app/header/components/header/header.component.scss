@@ -1,0 +1,23 @@
+ 
+ @import "../../../../styles/media.mixins.scss";
+.wrapper-header{    
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: flex-start;
+  //  background-color: aqua;
+    width: inherit;
+    height: 48px;
+    @include for-phone-only {
+        background: green;
+         
+      }
+    .header-content{
+        padding: 8px;
+        width: inherit;
+     //   background-color: blanchedalmond;
+        font-size: 1rem;
+
+    }
+}
