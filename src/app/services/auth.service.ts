@@ -119,7 +119,7 @@ export class AuthService {
   SignOut(){
     return this.authUser.signOut().then(()=>{
       localStorage.removeItem('user');
-      this.router.navigate(['auth'])
+      this.router.navigate(['auth/signin'])
     })
   }
   

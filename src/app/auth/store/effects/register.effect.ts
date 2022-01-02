@@ -48,12 +48,13 @@ export class RegisterEffect implements OnDestroy{
               console.log('error fao', error)
             return of(
               registerFailureAction()
+                      )
+                    })
+                  )
+              })
             )
-          })
-        )
-      })
-    )
-  )
+          )
+
     constructor(private actions$: Actions, private authService: AuthService, 
                 public afs: AngularFirestore,  private store: Store<AuthStateInterface>, 
                 private subService: SubscriptionService,public ngZone: NgZone,
@@ -64,11 +65,9 @@ export class RegisterEffect implements OnDestroy{
                         if (user) {
                         this.userData = user;
                         localStorage.setItem('user', JSON.stringify(this.userData));
-                        //JSON.parse(localStorage.getItem('user'));
-                        } else {
-                        //localStorage.setItem('user', {});
-                        localStorage.removeItem('user')
-                      //  JSON.parse(localStorage.getItem('user'));
+                        
+                        } else {                      
+                        localStorage.removeItem('user');                      
                         }
                     })
                 }
